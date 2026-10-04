@@ -1,4 +1,4 @@
-# LabelGuard — demo frontend (proof of concept)
+# demo frontend (proof of concept)
 
 A click-through mock of the officer and Ministry-facing screens, built for the
 SIH prototype/PPT round. No backend, no build step — plain HTML/CSS/JS.
