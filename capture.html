@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scan product — LabelGuard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body class="page">
+
+<div class="navbar" id="navbar"></div>
+
+<div class="main">
+  <div class="container">
+
+    <h1>Scan a product</h1>
+    <p>Capture the front display panel and the back panel, then run the compliance check.</p>
+
+    <div class="stepper" style="margin-top:22px;">
+      <div class="step is-active" id="step-1">
+        <span class="step-num">1</span><span class="step-label">Capture</span>
+      </div>
+      <div class="step-line" id="line-1"></div>
+      <div class="step" id="step-2">
+        <span class="step-num">2</span><span class="step-label">Processing</span>
+      </div>
+      <div class="step-line" id="line-2"></div>
+      <div class="step" id="step-3">
+        <span class="step-num">3</span><span class="step-label">Report</span>
+      </div>
+    </div>
+
+    <!-- ===================== CAPTURE PANEL ===================== -->
+    <div id="capture-panel">
+
+      <div class="panel panel-pad" style="margin-bottom:20px;">
+        <div class="eyebrow">Quick demo samples</div>
+        <p class="text-sm" style="margin-bottom:14px;">No camera handy? Load a pre-captured sample to see each outcome the engine can produce.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-ghost" onclick="loadSample('SCAN-10233')">Sample — fully compliant</button>
+          <button class="btn btn-ghost" onclick="loadSample('SCAN-10234')">Sample — violations found</button>
+          <button class="btn btn-ghost" onclick="loadSample('SCAN-10232')">Sample — readability flag</button>
+        </div>
+      </div>
+
+      <div class="panel panel-pad">
+        <h2>1. Capture panels</h2>
+        <p class="text-sm" style="margin-bottom:18px;">Both images are hashed and timestamped the instant they're added — before any processing touches them.</p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <label class="dropzone" id="dz-front" for="file-front">
+            <span class="dropzone-icon" id="icon-front"></span>
+            <div class="dropzone-title">Front — principal display panel</div>
+            <div class="dropzone-hint" id="hint-front">Click to choose an image</div>
+            <div id="preview-front"></div>
+          </label>
+          <input type="file" id="file-front" accept="image/*" style="display:none" onchange="handleFile('front', this)">
+
+          <label class="dropzone" id="dz-back" for="file-back">
+            <span class="dropzone-icon" id="icon-back"></span>
+            <div class="dropzone-title">Back — informational panel</div>
+            <div class="dropzone-hint" id="hint-back">Click to choose an image</div>
+            <div id="preview-back"></div>
+          </label>
+          <input type="file" id="file-back" accept="image/*" style="display:none" onchange="handleFile('back', this)">
+        </div>
+
+        <hr class="hr" />
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:end;">
+          <div>
+            <label class="field-label" style="margin-top:0;">Barcode (optional)</label>
+            <input class="text-input" id="barcodeInput" placeholder="Scan or type EAN / GTIN" />
+          </div>
+          <div class="flex" style="padding-bottom:10px;">
+            <input type="checkbox" id="arucoCheck" checked style="width:16px; height:16px;" />
+            <label for="arucoCheck" class="text-sm" style="margin:0;">ArUco calibration marker is visible in frame</label>
+          </div>
+        </div>
+
+        <button class="btn btn-verify" style="margin-top:22px;" id="scanBtn" onclick="runScan()" disabled>
+          Run compliance scan
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================== PROCESSING PANEL ===================== -->
+    <div id="processing-panel" class="panel panel-pad" style="display:none; max-width:560px;">
+      <h2>Running the edge engine</h2>
+      <p class="text-sm">Everything below runs locally on this device — no connectivity required.</p>
+      <div class="processing-log" id="processingLog" style="margin-top:14px;"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/capture.js"></script>
+</body>
+</html>

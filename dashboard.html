@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ministry dashboard — LabelGuard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body class="page">
+
+<div class="navbar" id="navbar"></div>
+
+<div class="main">
+  <div class="container">
+
+    <h1>Ministry dashboard</h1>
+    <p>Every inspection synced from the field, searchable in one place.</p>
+
+    <div class="stat-grid" style="margin-top:20px;">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total"></div>
+        <div class="stat-label">Inspections this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-violations"></div>
+        <div class="stat-label">Violations flagged</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-rate"></div>
+        <div class="stat-label">Compliance rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-officers"></div>
+        <div class="stat-label">Active field officers</div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 300px; gap:20px; align-items:start;">
+
+      <div class="panel">
+        <div class="panel-pad" style="padding-bottom:14px;">
+          <div class="flex-between">
+            <h2 style="margin:0;">Recent inspections</h2>
+            <span class="text-sm text-faint" id="resultCount"></span>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:14px;">
+            <input class="text-input" id="searchInput" placeholder="Search by product, manufacturer, or officer" oninput="renderTable()" />
+            <select class="text-input" id="statusFilter" style="max-width:190px;" onchange="renderTable()">
+              <option value="all">All statuses</option>
+              <option value="verify">Compliant</option>
+              <option value="flag">Violations found</option>
+              <option value="brass">Readability flag</option>
+            </select>
+          </div>
+        </div>
+        <div class="scan-row scan-row--head">
+          <div>Product</div><div>Officer</div><div>Date</div><div>Status</div><div></div>
+        </div>
+        <div id="scanTableBody"></div>
+      </div>
+
+      <div class="panel panel-pad">
+        <h2>Violation categories</h2>
+        <p class="text-sm" style="margin-bottom:10px;">Share of flagged inspections this month, by cause.</p>
+        <div id="barChart"></div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/dashboard.js"></script>
+</body>
+</html>

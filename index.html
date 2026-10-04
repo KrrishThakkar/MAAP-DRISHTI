@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LabelGuard — Sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="login-brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name" style="font-size:20px;">LabelGuard</span>
+    </div>
+    <p class="login-tagline">Vision-grounded, rule-verified Legal Metrology compliance for packaged commodities.</p>
+
+    <label class="field-label" style="margin-top:0;">Sign in as</label>
+
+    <div class="role-option is-selected" id="role-officer" onclick="selectRole('officer')">
+      <span class="role-icon" id="icon-officer"></span>
+      <div>
+        <div class="role-title">Field Officer</div>
+        <div class="role-desc">Capture and scan products on inspection</div>
+      </div>
+    </div>
+
+    <div class="role-option" id="role-ministry" onclick="selectRole('ministry')">
+      <span class="role-icon" id="icon-ministry"></span>
+      <div>
+        <div class="role-title">Ministry Official</div>
+        <div class="role-desc">Review inspections and compliance trends</div>
+      </div>
+    </div>
+
+    <label class="field-label">Officer / Employee ID</label>
+    <input class="text-input" id="userIdInput" value="LM-OFF-2291" />
+
+    <label class="field-label">Password</label>
+    <input class="text-input" type="password" value="••••••••" />
+
+    <button class="btn btn-primary btn-block" style="margin-top:22px;" onclick="doLogin()">Sign in</button>
+    <p class="text-sm text-faint" style="text-align:center; margin-top:14px; margin-bottom:0;">
+      Demo build — any credentials work. Role selection determines what you see next.
+    </p>
+  </div>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  let selected = "officer";
+
+  function paintIcons() {
+    document.getElementById("icon-officer").innerHTML = ICONS.officer;
+    document.getElementById("icon-ministry").innerHTML = ICONS.landmark;
+  }
+  paintIcons();
+
+  function selectRole(role) {
+    selected = role;
+    document.getElementById("role-officer").classList.toggle("is-selected", role === "officer");
+    document.getElementById("role-ministry").classList.toggle("is-selected", role === "ministry");
+    document.getElementById("userIdInput").value = role === "officer" ? OFFICER.id : MINISTRY_USER.id;
+  }
+
+  function doLogin() {
+    setRole(selected);
+    window.location.href = selected === "officer" ? "capture.html" : "dashboard.html";
+  }
+</script>
+</body>
+</html>
